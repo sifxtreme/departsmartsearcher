@@ -1,0 +1,21 @@
+{
+  "name": "search_app",
+  "version": "0.0.0",
+  "authors": [
+    "Asif Ahmed <asif@parksleepfly.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.23",
+    "angular-ui-date": "~0.0.4",
+    "angular-route": "~1.2.23"
+  }
+}

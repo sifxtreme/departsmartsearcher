@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="searchApp">
+<head>
+	<title>Searcher</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+</head>
+<body>
+
+<div class="container" ng-controller="AprSearchCtrl">
+	<input ui-date ui-date-format="" ng-model="checkin">{{checkin}}
+</div>
+
+<div class="container" ng-controller="PsfSearchCtrl">
+	<input ui-date ui-date-format="" ng-model="checkin">{{checkin}}
+</div>
+
+<!-- <div class="container" ng-controller="UberSearchCtrl">
+	<div ng-if="coordinates">
+		<p>LATITUDE: {{coordinates.latitude}}</p>
+		<p>LONGITUDE: {{coordinates.longitude}}</p>
+	</div>
+
+	<div ng-if="productData">
+		<h2>Products</h2>
+		<div ng-repeat="p in productData.products">
+			<p><img ng-src="{{p.image}}"/></p>
+			<p>Display Name: {{p.display_name}}</p>
+			<p>Description: {{p.description}}</p>
+			<p>Capacity: {{p.capacity}}</p>
+		</div>
+	</div>
+
+	<div ng-if="priceData">
+		<h2>Prices</h2>
+		<div ng-repeat="p in priceData.prices">
+			<p>{{p.display_name}}: {{p.estimate}}</p>
+		</div>
+	</div>
+
+	<div ng-if="timeData">
+		<h2>Times</h2>
+		<div ng-repeat="t in timeData.times">
+			<p>{{t.display_name}}: {{t.estimate/60 | number:1}}</p>
+		</div>
+	</div>
+</div> -->
+
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-date/src/date.js"></script>
+<script src="apr-library.js"></script>
+<script src="psf-library.js"></script>
+<script src="uber-library.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
