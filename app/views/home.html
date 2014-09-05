@@ -1,0 +1,29 @@
+<div class="homeFormWrapper">
+
+	<div>
+		<label>Airport</label>
+		<input type="text" ng-model="location" placeholder="Select Airport City" typeahead="airport as airport.name for airport in airports | filter:{name:$viewValue}" typeahead-template-url="./views/typeahead-locations.html">
+	</div>
+
+	<div>
+		<label>Check-in Date</label>
+		<input ui-date ui-date-format="mm/dd/yy" ng-model="checkin">
+	</div>
+
+	<div>
+		<label>Check-out Date</label>
+		<input ui-date ui-date-format="mm/dd/yy" ng-model="checkout">
+	</div>
+
+	<div>
+		<button type="submit" ng-click="formSubmit()">SEARCH</button>
+	</div>
+
+<!-- 	<div class="results">
+		<div><label>LOCATION</label><pre>{{location | json}}</pre></div>
+		<div><label>CHECKIN DATE</label><pre>{{checkin}}</pre></div>
+		<div><label>CHECKOUT DATE</label><pre>{{checkout}}</pre></div>
+	</div>
+ -->
+</div>
+

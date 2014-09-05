@@ -1,19 +1,15 @@
 angular.module('aprLibrary', [])
-	.constant('APR_URL', 'http://apitest.airportparkingreservations.com/v4/')
-	.constant('APR_KEY', 'xx')
-	.factory('aprCall', ['$http', '$q', 'APR_URL', 'APR_KEY',
-						   function($http,   $q,   APR_URL,   APR_KEY){
+	.factory('aprCall', ['$http', '$q',
+						   function($http,   $q){
 		
 		return function(endpoint, params){
 			var params = params || {};
-			params.key = APR_KEY;
-			params.type = 'JSON';
 			var defer = $q.defer();
 			$http({
-					url: APR_URL + endpoint,
-					method: 'GET',
+					url: '/apr/' + endpoint,
+					method: 'POST',
 					cache: true,
-					params: params,
+					data: params,
 				})
 				.success(function(data){
 					defer.resolve(data);
@@ -33,3 +29,9 @@ angular.module('aprLibrary', [])
 			return aprCall('airports');
 		}		
 	}])
+
+	.factory('aprSearch', ['aprCall', function(aprCall){
+		return function(data){
+			return aprCall('search', data);
+		} 
+	}])	

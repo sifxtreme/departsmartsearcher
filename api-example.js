@@ -7,7 +7,7 @@ var ids = {
 		url: 'https://parksleepfly.com/api/v1/',
 		key: 'ENTER KEY HERE'
 	},
-	uber {
+	uber: {
 		url: 'https://api.uber.com/v1/',
 		key: 'ENTER KEY HERE'
 	}

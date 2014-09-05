@@ -1,70 +1,120 @@
-angular.module('searchApp', ['uberLibrary', 'aprLibrary', 'psfLibrary', 'ui.date'])
+angular.module('searchApp', ['ngRoute', 'aprLibrary', 'psfLibrary', 'ui.date', 'ui.bootstrap'])
 
-	.controller('UberSearchCtrl', ['$scope', 'uberProducts', 'uberPrice', 'uberTime',
-		function($scope, uberProducts, uberPrice, uberTime){	
+	.config(['$routeProvider', function($routeProvider){
 
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position){
-			  $scope.$apply(function(){
-			    $scope.coordinates = position.coords;
-			    callUberFunctions();
-			  });
-			});
-		}
+		$routeProvider
+			.when('/', {
+			    templateUrl : './views/home.html',
+			    controller: 'SearchCtrl',
+			    resolve: {
+			    	psfAirportInfo: ['psfAirports', function(psfAirports){
+			    		return psfAirports();
+			    	}],
+			    	aprAirportInfo: ['aprAirports', function(aprAirports){
+			    		return aprAirports();
+			    	}],
+			    }
+			})
+			.when('/search', {
+			    templateUrl : './views/search.html',
+			    controller: 'ResultCtrl',
 
-		function callUberFunctions(){
-			var latitude = $scope.coordinates.latitude;
-			var longitude = $scope.coordinates.longitude;
-			var laxLat = "33.9425";
-			var laxLong = "-118.4081";
-
-			uberProducts(latitude, longitude).then(function(data){
-				$scope.productData = data;
-				console.log(data);
-			});
-
-			uberPrice(latitude, longitude, laxLat, laxLong).then(function(data){
-				$scope.priceData = data;
-				console.log(data);
-			});
-
-			uberTime(latitude, longitude).then(function(data){
-				$scope.timeData = data;
-				console.log(data);
-			});
-
-		}
+			})
+			.when('/error', {
+			    template : '<p>Error Page: Not Found</p>'
+			})
+			.otherwise({
+			  redirectTo : '/error'
+		  });
 
 	}])
 
-	.controller('AprSearchCtrl', ['$scope', 'aprAirports',
-		function($scope, aprAirports){	
-
-		function callAprFunction(){
-
-			aprAirports().then(function(data){
-				console.log(data);
-			});
-
+	.factory('SearchData', ['$rootScope', function($rootScope){
+		var yo = "wtf"
+		var searchData = {
+			data: {},
+			changeyo:function(){
+				yo = "XXX";
+			},
+			c: function(){
+				console.log(yo);
+			}
 		}
+		return searchData;
+	}])
 
-		callAprFunction();
+	.controller('SearchCtrl', ['$scope', '$location', 'SearchData', 'aprAirportInfo', 'psfAirportInfo',
+		function($scope, $location, SearchData, aprAirportInfo, psfAirportInfo){
 
+			SearchData.c();
+			SearchData.changeyo();
+
+			// if(a === 'undefined') a = 400;
+			b = (typeof b === 'undefined') ? 'default' : b
+
+
+			// a = {
+			// 	b: c || 'd'
+			// }
+
+			function getAirports(psf, apr){
+				var airportsObjects = [];
+				var airportsList = {};
+
+				var whitelistedCountries = ["United States", "Canada"];
+				var psfObject = createObject(psf).data;
+				var psfCountriesLength = psfObject.length;
+				for(var i=0; i<psfCountriesLength; i++){
+					if(whitelistedCountries.indexOf(psfObject[i].country) != -1){
+						var airports = psfObject[i].airports;
+						var airportLength = airports.length;
+						for(var j=0; j<airportLength; j++){
+							airportsObjects.push(airports[j]);
+							airportsList[airports[j].code] = "";
+						}
+					}					
+				}
+
+				var aprObject = createObject(apr).data;
+				var aprLength = aprObject.length;
+				for(var i=0; i<aprLength; i++){
+					var singleAprAirport = aprObject[i];
+					if(airportsList[singleAprAirport.code] == undefined){
+						airportsObjects.push(singleAprAirport);
+					}
+				}
+
+				airportsObjects.sort(function(a,b){
+					var x = a.name;
+					var y = b.name;
+
+					if(typeof x == "string"){
+						x = x.toLowerCase();
+						y = y.toLowerCase();
+					}
+
+					 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+				});
+
+				return airportsObjects;
+			}
+
+			$scope.airports = getAirports(psfAirportInfo, aprAirportInfo);
+
+			$scope.formSubmit = function(){
+				console.log("YO");
+				$location.path('/search');
+			}
+
+			function createObject(o){
+				return (JSON.parse(JSON.parse(o)));
+			}
 
 	}])
 
-	.controller('PsfSearchCtrl', ['$scope', 'psfAirports',
-		function($scope, psfAirports){	
+	.controller('ResultCtrl', ['$scope', 'SearchData',
+		function($scope, SearchData){
 
-		function callPsfFunction(){
-
-			psfAirports().then(function(data){
-				console.log(data);
-			});
-
-		}
-
-		callPsfFunction();
-
+			SearchData.c();
 
 	}])
