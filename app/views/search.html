@@ -1,3 +1,27 @@
-<div>
-<h2>RESULTS</h2>
-</div>
+<section class="searchWrapper row">
+	<h2>RESULTS</h2>
+	<div class="aprResults col-sm-6">
+		<h3>APR RESULTS</h3>
+		<section class="singleResult" ng-repeat="s in aprSearchResults">
+			<div>Name: {{s.name}}</div>
+			<div>Daily Rate: {{s.daily_rate}}</div>
+			<div>Distance to Airport: {{s.distance_to_airport}}</div>
+			<div>Average Shuttle Wait Time: {{s.avg_shuttle_wait_time}}</div>
+			<div>Average Rating: {{s.average_rating}}</div>
+			<div><img ng-src="{{s.logo}}" /></div>
+			<div>{{s.information.latitude}}{{s.information.longitude}}</div>
+		</section>
+	</div>
+	<div class="psfResults col-sm-6">
+		<h3>PSF RESULTS</h3>
+		<section class="singleResult" ng-repeat="s in psfSearchResults">
+			<div>Name: {{s.name}}</div>
+			<div>Daily Rate: {{s.overview.avg_price}}</div>
+			<div>Distance to Airport: {{s.overview.distance_to_airport}}</div>
+			<div>Average Shuttle Wait Time: {{s.overview.avg_shuttle_wait_time}}</div>
+			<div>Average Rating: {{s.overview.average_rating}}</div>
+			<div><img ng-src="{{s.info.logo}}" /></div>
+			<div>{{s.address.latitude}}{{s.address.longitude}}</div>
+		</section>
+	</div>
+</section>

@@ -1,0 +1,15 @@
+.singleResult {
+	border: 3px solid black;
+	margin: 5px;
+	padding: 10px;
+
+}
+
+h2, h3 {
+	text-align: center;
+}
+
+.singleResult img {
+	max-width: 100px;
+	max-height: 100px;
+}

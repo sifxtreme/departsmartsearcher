@@ -37,11 +37,17 @@ var api = require('./api.js');
 var request = require('request');
 
 function createRequestUrl(baseUrl, params){
-	var url = baseUrl + '?';
+	return baseUrl + '?' + createParamString(params);
+}
+
+function createParamString(params){
+	var paramString = '';
 	for(p in params){
-		url += p + '=' + params[p] + '&';
+		if(params[p] && params[p] != ''){
+			paramString += p + '=' + encodeURIComponent(params[p]) + '&';	
+		}
 	}
-	return url;
+	return paramString;
 }
 
 router.route('/psf/airports')
@@ -70,17 +76,60 @@ router.route('/apr/airports')
 
 	})
 
-// router.route('/apr/search')
-// 	.post(function(req, res){
+router.route('/psf/search')
+	.post(function(req, res){
 
-// 		var requestURL = url + 'airports' + '?key=' + key;
-// 		request(requestURL, function (error, response, body) {
-// 		  if (!error && response.statusCode == 200) {
-// 		    res.json(body);
-// 		  }
-// 		})
-		
-// 	})
+		var params = req.body;
+		params.api_key = api.psf.key;
+		params.airport_id = params.id;
+
+		request.post({
+			headers: {'content-type' : 'application/x-www-form-urlencoded'},
+			url: api.psf.url+'search',
+			body: createParamString(params)
+		},
+		function(error, response, body){
+			var bodyData = JSON.parse(body);
+			var searchID = bodyData.data.search_id;
+			getResults(searchID);
+			return;
+		});
+
+		function getResults(search_id){
+			var newParams = {
+				search_id: search_id,
+				api_key: api.psf.key
+			}
+
+			request.post({
+				headers: {'content-type' : 'application/x-www-form-urlencoded'},
+				url: api.psf.url+'airport_hotels',
+				body: createParamString(newParams)
+			},
+			function(error, response, body){
+				res.json(body);
+			})
+		}
+
+	})
+
+router.route('/apr/search')
+	.post(function(req, res){
+
+		var params = req.body;
+		params.key = api.apr.key;
+		params.airport_id = params.code;
+
+		request.post({
+			headers: {'content-type' : 'application/x-www-form-urlencoded'},
+			url: api.apr.url+'search',
+			body: createParamString(params)
+		},
+		function(error, response, body){
+			res.json(body);
+		});
+
+	})
 
 // REGISTER OUR ROUTES -------------------------------
 app.use('/', router);

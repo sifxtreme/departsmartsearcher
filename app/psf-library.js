@@ -29,3 +29,24 @@ angular.module('psfLibrary', [])
 			return psfCall('airports');
 		}		
 	}])
+
+	.factory('psfSearch', ['psfCall', function(psfCall){
+		return function(data){
+			var dataToSend = {};
+			
+			var startDate = new Date();
+			var endDate = new Date();
+			startDate.setDate(startDate.getDate() + 1);
+			endDate.setDate(endDate.getDate() + 2);
+			dataToSend.date1 = data.checkinDate || startDate.toLocaleDateString();
+			dataToSend.date2 = data.checkoutDate || endDate.toLocaleDateString();
+
+			dataToSend.package_type = 'PSF';
+			dataToSend.guests = 2;
+			dataToSend.rooms = 1;
+			
+			dataToSend.id = (data.location) ? data.location.airport_id : 7;
+
+			return psfCall('search', dataToSend);
+		} 
+	}])	
