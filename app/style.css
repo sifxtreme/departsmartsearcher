@@ -2,14 +2,78 @@
 	border: 3px solid black;
 	margin: 5px;
 	padding: 10px;
+	border-radius: 5px;
+	background-color: rgba(255,255,255,0.8);
+}
+
+html {
+	background: url('bg.jpg') no-repeat center center fixed;
+	background-size: cover;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+body {
+	background-color: transparent!important;
+}
+
+.homeFormWrapper {
+	padding: 25px;
+	background-color: rgba(40, 40, 40, 0.8);
+
+	position: relative;
+	margin-top: 200px;
+	border-radius: 5px;
+	border: 2px solid black;
 
 }
 
-h2, h3 {
-	text-align: center;
+.form-group {
+	padding: 15px;
+}
+
+.homeFormWrapper section {
+	margin-top: 25px;
+}
+
+.homeFormWrapper label {
+	font-size: 18px;
+	color: white;
+	font-weight: normal;
+	padding-top: 5px;
+}
+
+h1 {
+	color: white!important;
+	font-weight: normal!important;
+}
+
+.search-button {
+	margin-top: 50px;
+	display: block;
+	background-color: white;
+	height: 55px;
+	font-size: 24px!important;
+	outline: none;
+	border: 3px solid #444;
+	color: #222;
+	border-radius: 5px;
+}
+
+.search-button:hover {
+	background-color: transparent;
+	color: white;
+	border: 3px solid #fff;
+}
+
+.ui-datepicker {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
 }
 
 .singleResult img {
 	max-width: 100px;
 	max-height: 100px;
 }
+

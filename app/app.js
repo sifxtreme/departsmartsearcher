@@ -131,17 +131,6 @@ angular.module('searchApp', ['ngRoute', 'aprLibrary', 'psfLibrary', 'ui.date', '
 
 				if(!$scope.location){
 					alert("Please select a location");
-
-					return;
-				}
-
-				if(!$scope.checkin){
-					alert("Please select a checkin date");
-					return;
-				}
-
-				if(!$scope.checkout){
-					alert("Please select a checkout date");
 					return;
 				}
 
@@ -153,12 +142,67 @@ angular.module('searchApp', ['ngRoute', 'aprLibrary', 'psfLibrary', 'ui.date', '
 
 	}])
 
-	.controller('ResultCtrl', ['$scope', 'aprSearchInfo', 'psfSearchInfo',
-		function($scope, aprSearchInfo, psfSearchInfo){
+	.controller('ResultCtrl', ['$scope', 'aprSearchInfo', 'psfSearchInfo', '$sce',
+		function($scope, aprSearchInfo, psfSearchInfo, $sce){
+			var allResults = [];
+
 			var aprSearchResults = JSON.parse(JSON.parse(aprSearchInfo));
-			$scope.aprSearchResults = aprSearchResults.data;
+			var aprLength = aprSearchResults.data.length;
+			for(var i=0; i<aprLength; i++){
+				var o = aprSearchResults.data[i];
+				var n = {};
+				n.source = "AirportParkingReservations";
+				n.name = o.name;
+				n.daily_rate = o.daily_rate;
+				n.distance_to_airport = o.distance_to_airport;
+				n.shuttle = o.avg_shuttle_wait_time;
+				n.rating = o.average_rating;
+				n.logo = o.logo;
+				n.latitude = o.information.latitude;
+				n.longitude = o.information.longitude;
+				n.information = $sce.trustAsHtml('<p>' + o.information.airport_transportation + '</p><p>' + o.information.arrival_information + '</p><p>' + o.information.operation_hours + '</p>');
+
+				allResults.push(n);
+			}
 
 			var psfSearchResults = JSON.parse(JSON.parse(psfSearchInfo));
+			var psfLength = psfSearchResults.data.hotels.length;
+			for(var i=0; i<psfLength; i++){
+				var o = psfSearchResults.data.hotels[i];
+				var n = {};
+				n.source = "ParkSleepFly";
+				n.name = o.name;
+				n.daily_rate = o.overview.avg_price;
+				n.distance_to_airport = o.overview.distance_to_airport;
+				n.shuttle = o.overview.avg_shuttle_wait_time;
+				n.rating = o.overview.average_rating;
+				n.logo = o.info.logo;
+				n.latitude = o.address.latitude;
+				n.longitude = o.address.longitude;
+				n.information = $sce.trustAsHtml('<p>' + o.info.description + '</p><p>' + o.info.directions + '</p><p>' + o.info.parking_description + '</p>');
+
+				allResults.push(n);
+			}
+
+			$scope.parkingData = allResults;
+
+			$scope.active = '';
+			$scope.setActive = function(s){
+				$scope.active = s;
+			}
+
+			$scope.order = {'label':'', 'sort':'', 'order':''};
+			$scope.orders = [
+				{'label': 'Name', 'sort': 'name'},
+				{'label': 'Daily Rate', 'sort': 'daily_rate'},
+				{'label': 'Distance to Airport', 'sort': 'distance_to_airport'},
+				{'label': 'Rating', 'sort': 'rating', 'order':true}
+			];
+
+
+
+
+			$scope.aprSearchResults = aprSearchResults.data;
 			$scope.psfSearchResults = psfSearchResults.data.hotels;
 
 	}])
