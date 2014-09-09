@@ -1,17 +1,9 @@
-.singleResult {
-	border: 3px solid black;
-	margin: 5px;
-	padding: 10px;
-	border-radius: 5px;
-	background-color: rgba(255,255,255,0.8);
-}
-
 html {
 	background: url('bg.jpg') no-repeat center center fixed;
 	background-size: cover;
 }
 
-h1, h2, h3 {
+h1, h2 {
 	text-align: center;
 }
 
@@ -19,15 +11,19 @@ body {
 	background-color: transparent!important;
 }
 
+label {
+	font-weight: normal!important;
+	font-size: 18px;
+	padding-top: 5px;
+}
+
 .homeFormWrapper {
 	padding: 25px;
 	background-color: rgba(40, 40, 40, 0.8);
-
 	position: relative;
-	margin-top: 200px;
+	margin-top: 100px;
 	border-radius: 5px;
 	border: 2px solid black;
-
 }
 
 .form-group {
@@ -39,41 +35,124 @@ body {
 }
 
 .homeFormWrapper label {
-	font-size: 18px;
 	color: white;
-	font-weight: normal;
-	padding-top: 5px;
+	
 }
 
-h1 {
+h1, h2 {
 	color: white!important;
 	font-weight: normal!important;
 }
 
-.search-button {
-	margin-top: 50px;
-	display: block;
+.search-button, select {
 	background-color: white;
-	height: 55px;
-	font-size: 24px!important;
 	outline: none;
 	border: 3px solid #444;
 	color: #222;
 	border-radius: 5px;
 }
 
+.search-button {
+	margin-top: 50px;
+	height: 55px;
+	font-size: 24px!important;
+}
 .search-button:hover {
 	background-color: transparent;
 	color: white;
 	border: 3px solid #fff;
 }
 
+select {
+	height: 40px;
+}
+
+h3 {
+	margin-top: 0px;
+	margin-bottom: 10px;
+	font-size: 18px;
+	width: 300px;
+}
+
+.productInfo {
+	float: left;
+}
+
+.logo {
+	float: right;
+}
+
+.logo img {
+	border-radius: 5px;
+	max-width: 120px;
+	max-height: 120px;
+}
+
 .ui-datepicker {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
 }
 
-.singleResult img {
-	max-width: 100px;
+.singleResult {
+	border: 3px solid black;
+	margin: 5px;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: rgba(255,255,255,0.8);
+}
+
+.hoverState {
+	cursor: pointer;
+}
+
+.hoverState:hover {
+	background-color: #eee;
+}
+
+.singleResult > label {
+	float: left;
+}
+
+.selectWrapper{
+	float: right;
+}
+
+.pinned {
+	position: fixed;
+	width: 30%;
+	overflow: auto;
+	height: 80%;
+	background-color: white;
+}
+
+.pinned h3 {
+	width: 100%;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.center-logo {
+	float: right;
+}
+
+.center-logo img {
+	max-width: 150px;
 	max-height: 100px;
+	margin-bottom: 25px;
+}
+
+.map-image {
+	margin-top: 25px;
+	text-align: center
+}
+
+.book-now {
+	font-size: 18px;
+	text-align: center;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+.book-now a {
+	color: #e62571!important;
 }
 

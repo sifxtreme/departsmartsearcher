@@ -199,9 +199,6 @@ angular.module('searchApp', ['ngRoute', 'aprLibrary', 'psfLibrary', 'ui.date', '
 				{'label': 'Rating', 'sort': 'rating', 'order':true}
 			];
 
-
-
-
 			$scope.aprSearchResults = aprSearchResults.data;
 			$scope.psfSearchResults = psfSearchResults.data.hotels;
 

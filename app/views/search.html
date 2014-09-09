@@ -1,29 +1,45 @@
 <section class="searchWrapper row">
-	<h2>RESULTS</h2>
+	<h2>SEARCH RESULTS</h2>
 
 	<div class="col-sm-6">
-		<select ng-model="order" ng-options="item as item.label for item in orders"></select>
-		<section class="singleResult" ng-repeat="s in parkingData | orderBy:order.sort:order.order" ng-click="setActive(s)">
-			<div>Name: {{s.name}}</div>
-			<div>Daily Rate: {{s.daily_rate}}</div>
-			<div>Distance to Airport: {{s.distance_to_airport}}</div>
-			<div>Average Shuttle Wait Time: {{s.shuttle}}</div>
-			<div>Average Rating: {{s.rating}}</div>
-			<div><img ng-src="{{s.logo}}" /></div>
+		
+		<div class="singleResult">
+			<label>Showing {{parkingData.length}} Results</label>
+			<div class="selectWrapper">
+				<label>Sort Order</label>
+				<select ng-model="order" ng-options="item as item.label for item in orders"></select>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+
+		<section class="singleResult hoverState" ng-repeat="s in parkingData | orderBy:order.sort:order.order" ng-click="setActive(s)">
+			<div class="productInfo">
+				<h3>{{s.name}}</h3>
+				<div>Daily Rate: {{s.daily_rate | currency}}</div>
+				<div>Distance to Airport: {{s.distance_to_airport}}</div>
+				<div>Average Shuttle Wait Time: {{s.shuttle}}</div>
+				<div>Average Rating: {{s.rating}}</div>
+			</div>
+			<div class="logo"><img ng-src="{{s.logo}}" /></div>
+			<div style="clear:both"></div>
 		</section>
+
 	</div>
 
-	<div class="col-sm-6 pinned" ng-if="active.name">
-		<section class="singleResult">
-			<div>Source: {{active.source}}</div>
-			<div>Name: {{active.name}}</div>
-			<div>Daily Rate: {{active.daily_rate}}</div>
+	<div class="col-sm-6" ng-if="active.name">
+		<section class="pinned singleResult">
+			<div><h3>{{active.name}}</h3></div>
+			<div class="center-logo"><img ng-src="{{active.logo}}" /></div>
+			<div>Daily Rate: {{active.daily_rate | currency}}</div>
 			<div>Distance to Airport: {{active.distance_to_airport}}</div>
 			<div>Average Shuttle Wait Time: {{active.shuttle}}</div>
 			<div>Average Rating: {{active.rating}}</div>
-			<div><img ng-src="{{active.logo}}" /></div>
-			<div>{{active.latitude}}{{active.longitude}}</div>
-			<div ng-bind-html="active.information"></div>
+			<div style="clear:both"></div>
+			<div class="map-image">
+				<img src="http://maps.googleapis.com/maps/api/staticmap?center={{active.latitude}},{{active.longitude}}&zoom=16&size=300x300&maptype=roadmap&markers=color:red%7Clabel:P%7C{{active.latitude}},{{active.longitude}}&api_key=AIzaSyD3SYtvIKjxXm8pphlduh00xxcUjQB2rpg" />
+			</div>
+			<div class="book-now"><a href="http://www.{{active.source}}.com">Book Parking at {{active.source}}</a></div>
+			<div class="detailsInformation" ng-bind-html="active.information"></div>
 		</section>
 	</div>
 	
