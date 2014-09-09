@@ -1,5 +1,17 @@
 angular.module('searchApp', ['ngRoute', 'aprLibrary', 'psfLibrary', 'ui.date', 'ui.bootstrap'])
-
+	.run(['$rootScope', '$location', '$timeout', function($rootScope, $location, $timeout) {
+	    $rootScope.$on('$routeChangeError', function() {
+	        $location.path("/error");
+	    });
+	    $rootScope.$on('$routeChangeStart', function() {
+	        $rootScope.isLoading = true;
+	    });
+	    $rootScope.$on('$routeChangeSuccess', function() {
+	      $timeout(function() {
+	        $rootScope.isLoading = false;
+	      }, 1000);
+	    });
+	}])
 	.config(['$routeProvider', function($routeProvider){
 
 		$routeProvider

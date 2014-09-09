@@ -161,3 +161,21 @@ angular.module('searchApp', ['ngRoute', 'uberLibrary', 'aprLibrary', 'psfLibrary
 			<div>{{s.address.latitude}}{{s.address.longitude}}</div>
 		</section>
 	</div> -->
+
+
+		.factory('SearchData', ['$rootScope', function($rootScope){
+		var yo = "wtf"
+		var searchData = {
+			data: {},
+			changeyo:function(){
+				yo = "XXX";
+			},
+			c: function(){
+				console.log(yo);
+			}
+		}
+		return searchData;
+	}])
+
+
+				b = (typeof b === 'undefined') ? 'default' : b;
