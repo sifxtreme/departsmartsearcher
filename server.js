@@ -8,12 +8,14 @@ var express    = require('express'); 		// call express
 var app        = express(); 				// define our app using express
 var bodyParser = require('body-parser');
 
+var env = process.env.NODE_ENV || 'DEVELOPMENT';
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/app'));
-
+var appFolder = (env == 'LIVE') ? '/build' : '/app';
+app.use(express.static(__dirname + appFolder));
 var port = process.env.PORT || 8080; 		// set our port
 
 // ROUTES
@@ -28,7 +30,7 @@ router.use(function(req, res, next) {
 
 // home page route
 router.get('/', function(req, res) {
-	res.sendFile(__dirname + '/app/index.html')	;
+	res.sendFile(__dirname + appFolder + '/index.html')	;
 });
 
 // routes for our API will happen here

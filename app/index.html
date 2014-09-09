@@ -3,9 +3,11 @@
 <head>
 	<title>Depart Smart Search Tool</title>
 	<meta charset="UTF-8" />
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<!-- build:css ./combined.css -->
+	<link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css">
 	<link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- endbuild -->
 </head>
 
 <body ng-class="{loading: isLoading}">
@@ -14,6 +16,7 @@
 	<div ng-view></div>
 </div>
 
+<!-- build:js ./combined.js -->
 <script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="./bower_components/jquery-ui/jquery-ui.js"></script>
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
@@ -23,5 +26,6 @@
 <script src="apr-library.js"></script>
 <script src="psf-library.js"></script>
 <script src="app.js"></script>
+<!-- endbuild -->
 </body>
 </html>

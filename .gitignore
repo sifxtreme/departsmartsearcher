@@ -2,3 +2,4 @@ node_modules/
 app/bower_components/
 config.codekit
 api.js
+build/

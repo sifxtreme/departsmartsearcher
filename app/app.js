@@ -63,11 +63,9 @@ angular.module('searchApp', ['ngRoute', 'aprLibrary', 'psfLibrary', 'ui.date', '
 				}
 
 				function defaultEndingDate(){
-					return function(){
-						var endDate = (typeof $scope.checkin === 'undefined') ? new Date() : new Date($scope.checkin);
-						endDate.setDate(endDate.getDate() + 1);
-						return endDate;
-					}();					
+					var endDate = (typeof $scope.checkin === 'undefined') ? new Date() : new Date($scope.checkin);
+					endDate.setDate(endDate.getDate() + 1);
+					return endDate;					
 				}
 
 				function initBeginDatePicker(){
