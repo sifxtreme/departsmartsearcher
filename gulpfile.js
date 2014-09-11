@@ -8,6 +8,7 @@ var usemin = require('gulp-usemin');
 var rev = require('gulp-rev');
 var clean = require('gulp-clean');
 var shell = require('gulp-shell');
+var protractor = require("gulp-protractor").protractor;
 
 gulp.task('clean', function () {  
   return gulp.src('build', {read: false})
@@ -29,12 +30,10 @@ gulp.task('usemin', function() {
 });
 
 gulp.task('connect-dev', shell.task([
-  'echo hello world',
   'NODE_ENV=DEV nodemon server.js'
 ]));
 
 gulp.task('connect-live', shell.task([
-  'echo hello world',
   'NODE_ENV=LIVE nodemon server.js'
 ]));
 
@@ -42,3 +41,21 @@ gulp.task('connect-live', shell.task([
 gulp.task('default', ['connect-dev']);
 gulp.task('build', ['clean', 'copy-static-files', 'usemin']);
 gulp.task('live', ['build', 'connect-live']);
+
+function runProtractor(debug) {
+  return function() {
+    var args = ['--baseUrl', 'http://localhost:8080'];
+    if(debug) {
+      args.unshift('debug');
+    }
+    gulp.src(["./e2e-tests/**/*Spec.js"])
+        .pipe(protractor({
+            configFile: "protractor.js",
+            args: args
+        })) 
+        .on('error', function(e) { throw e })
+  }
+}
+
+gulp.task('test', runProtractor());
+gulp.task('test:debug', runProtractor(true));

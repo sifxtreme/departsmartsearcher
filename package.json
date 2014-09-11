@@ -6,8 +6,7 @@
   "dependencies": {
     "express": "~4.8.7",
     "request": "~2.40.0",
-    "body-parser": "~1.7.0",
-    "gulp-shell": "~0.2.9"
+    "body-parser": "~1.7.0"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
@@ -18,7 +17,13 @@
     "gulp-minify-css": "^0.3.4",
     "gulp-rev": "^0.3.2",
     "gulp-uglify": "^0.3.0",
-    "gulp-clean": "^0.2.4"
+    "gulp-clean": "^0.2.4",
+    "gulp-shell": "~0.2.9",
+    "karma": "~0.12.23",
+    "karma-chrome-launcher": "~0.1.4",
+    "karma-jasmine": "~0.1.5",
+    "protractor": "^1.0.0-rc6",
+    "gulp-protractor": "0.0.11"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
